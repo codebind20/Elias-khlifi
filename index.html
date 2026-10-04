@@ -1,5 +1,3 @@
-# Elias-khlifi
-ELIAS - Movies and TV Series Streaming Platform
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -179,4 +177,23 @@ function play(id,ep){
  if(x.src){v.src=x.src;v.hidden=false;$("#ph").hidden=true;v.play().catch(()=>{})}else{v.removeAttribute("src");v.hidden=true;$("#ph").hidden=false}
  closeM();$("#pv").classList.add("o");document.body.style.overflow="hidden";
 }
-fu
+function stop(){const v=$("#vd");v.pause();$("#pv").classList.remove("o");document.body.style.overflow=""}
+document.addEventListener("click",e=>{
+ const t=e.target,c=n=>t.closest(n);
+ if(c("[data-add]")){e.stopPropagation();const id=+c("[data-add]").dataset.add,l=LS();SV(l.includes(id)?l.filter(i=>i!=id):[...l,id]);rows();if($("#md").classList.contains("o"))openM(id);return}
+ if(c("[data-play]")){const b=c("[data-play]");play(+b.dataset.play,b.dataset.ep);return}
+ if(c("[data-open]")){openM(+c("[data-open]").dataset.open);return}
+ if(c("[data-close]")||t.id=="md"){closeM();return}
+ if(c("[data-h]")){hi=+c("[data-h]").dataset.h;hero();return}
+ if(c("[data-g]")){st.g=c("[data-g]").dataset.g;chips();rows();return}
+ if(c("#tabs li,#tab button")){go(c("#tabs li,#tab button").dataset.k);return}
+ if(c(".ar")){const s=c(".sw").querySelector(".sc");s.scrollBy({left:(c(".ar.l")?-1:1)*s.clientWidth*.8,behavior:"smooth"})}
+ if(c("#back"))stop();
+});
+document.addEventListener("keydown",e=>{if(e.key=="Escape"){stop();closeM()}if(e.key=="Enter"&&e.target.classList.contains("card"))openM(+e.target.dataset.open)});
+$("#q").addEventListener("input",e=>{st.q=e.target.value.trim().toLowerCase();rows()});
+addEventListener("scroll",()=>$("#nav").classList.toggle("s",scrollY>30),{passive:true});
+hero();chips();rows();
+</script>
+</body>
+</html>
